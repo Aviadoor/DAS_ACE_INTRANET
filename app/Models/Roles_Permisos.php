@@ -12,5 +12,9 @@ class Roles_Permisos extends Model
     protected $primaryKey = 'id';
     protected $table = 'Roles_Permisos';
     public $timestamps = true;
+    public $fillable = [
+        'fk_id_rol',
+        'fk_id_permiso'
+    ];
 
 }

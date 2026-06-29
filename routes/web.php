@@ -6,7 +6,8 @@ use App\Http\Controllers\BoletaController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\RolController;
 
 Route::middleware('guest') -> group(function(){
     Route::get('/login', [AuthController::class, 'showLoginForm']) -> name('login');
@@ -33,4 +34,8 @@ Route::middleware('auth')->group(function() {
         ->middleware('permission:boletas-crud');
 
     Route::resource('usuario', UsuarioController::class)->middleware('permission:admin-all');
+    
+    Route::resource('rol', RolController::class) -> middleware('permission:admin-all');
+
+    Route::resource('permiso', PermisoController::class) -> middleware('permission:admin-all');
 });

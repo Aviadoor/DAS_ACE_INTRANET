@@ -259,7 +259,7 @@
                     <div class="collapse" id="maestrosSubmenu">
                         <ul class="sidebar-nav" style="background-color: #2b3035;">
                             <li>
-                                <a href="#" class="nav-link ps-4">
+                                <a href="{{ route('rol.index')}}" class="nav-link ps-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fas fa-user-tag nav-icon" style="font-size: 0.85rem;"></i>
                                         <span class="hide-on-collapse ms-2">Roles</span>
@@ -267,7 +267,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link ps-4">
+                                <a href="{{ route('permiso.index') }}" class="nav-link ps-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fas fa-key nav-icon" style="font-size: 0.85rem;"></i>
                                         <span class="hide-on-collapse ms-2">Permisos</span>
