@@ -23,6 +23,7 @@ class CheckPermission
             }
         }
 
-        abort(403, 'No tienes el permiso asignado ("'.implode(', ', $permissions).'") para realizar esta acción.');
+        return redirect()->route('home')
+            ->with('error_permiso', 'No tienes los permisos necesarios para acceder a esta sección.');
     }
 }

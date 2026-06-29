@@ -18,7 +18,6 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        // En tu método login() del controlador:
         if (Auth::attempt(['Email' => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
             return redirect()->intended('/venta');
@@ -36,6 +35,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

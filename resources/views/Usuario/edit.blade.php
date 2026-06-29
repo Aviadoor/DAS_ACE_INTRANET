@@ -145,8 +145,9 @@
             </div>
         </div>
         <div class="container">
+            Roles
             <div class="select-btn">
-                <span class="btn-text">Seleccionar Rol(es)</span>
+                <span class="btn-text">Seleccionar</span>
                 <span class="arrow-dwn">
                     <i class="fa-solid fa-chevron-down"></i>
                 </span>

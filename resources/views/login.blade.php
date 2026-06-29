@@ -125,13 +125,6 @@
                 
                 <div class="row align-items-center mt-2">
                     <div class="col-8">
-                        <!-- 3. Agregué el clásico "Recuérdame" en el espacio que tenías libre -->
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                            <label class="form-check-label" for="remember">
-                                Recuérdame
-                            </label>
-                        </div>
                     </div>
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary w-100">

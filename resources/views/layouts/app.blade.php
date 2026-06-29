@@ -186,12 +186,12 @@
         <aside class="sidebar shadow">
             
             <!-- Logo Header -->
-            <div class="sidebar-header">
+            <a href="{{ route('home') }}" class="sidebar-header text-decoration-none" style="display: flex; align-items: center;">
                 <div class="logo-icon">A</div>
                 <div class="hide-on-collapse ms-2 text-white" style="font-size: 1.1rem;">
                     <strong>A.C.</strong> <span class="fw-light">Enterprises</span>
                 </div>
-            </div>
+            </a>
 
             <!-- Menú Navegación -->
             <ul class="sidebar-nav">
@@ -297,11 +297,25 @@
             <!-- Navbar Superior (Topbar) -->
             <header class="topbar">
                 <div>
-                    <!-- BOTÓN DE 3 RAYAS PARA ACTIVAR/DESACTIVAR EL MENU -->
                     <i class="fas fa-bars text-secondary fs-5" id="menu-toggle" style="cursor: pointer;"></i>
                 </div>
-                <div class="text-secondary" style="font-weight: 600; font-size: 0.9rem;">
-                    Diego
+                
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-secondary" style="font-weight: 600; font-size: 0.9rem;">
+                        <i class="fas fa-user-circle me-1"></i> {{ Auth::user()->Username ?? 'Invitado' }}
+                    </span>
+                    
+                    @auth
+                        <button class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1" 
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="d-none d-sm-inline">Salir</span>
+                        </button>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    @endauth
                 </div>
             </header>
 
