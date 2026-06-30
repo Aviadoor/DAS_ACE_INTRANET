@@ -1,6 +1,6 @@
 @extends('layouts.show')
 
-@section('page-title', 'Detalle del Rol ' . $rol->id)
+@section('page-title', 'Detalle del Rol ' . $rol->Rol)
 @section('back-url', route('rol.index'))
 
 @section('show-content')
