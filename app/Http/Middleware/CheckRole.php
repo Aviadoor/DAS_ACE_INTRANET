@@ -17,10 +17,15 @@ class CheckRole
 
         $user = Auth::user();
 
+        if(!$user->Habilitado){
+            Auth::logout();
+            return redirect('/login') -> with('error', 'Tu cuenta ha sido deshabilitada.');
+        }
+
         // 2. Verificar si el usuario tiene al menos uno de los roles solicitados
         foreach ($roles as $role) {
             if ($user->hasRole($role)) {
-                return $next($request); // Déjalo pasar
+                return $next($request);
             }
         }
 

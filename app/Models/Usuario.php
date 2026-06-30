@@ -76,8 +76,14 @@ class Usuario extends Authenticatable
     {
         // Buscamos si entre todos los roles del usuario, alguno tiene el permiso con ese Slug
         return $this->roles()->whereHas('permisos', function($query) use ($permissionSlug) {
-            $query->where('Slug', $permissionSlug)
-                ->orWhere('Slug', 'admin-all'); // Si tiene acceso total, lo deja pasar siempre
+            
+            // 1. Validamos que el permiso esté habilitado
+            $query->where('habilitado', true) // (o 1, si tu base de datos usa enteros)
+                  // 2. Agrupamos la validación del Slug específico o el admin-all
+                ->where(function($q) use ($permissionSlug) {
+                    $q->where('Slug', $permissionSlug)
+                        ->orWhere('Slug', 'admin-all');
+                });
         })->exists();
     }
 }

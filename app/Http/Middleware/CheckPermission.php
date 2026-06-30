@@ -16,6 +16,11 @@ class CheckPermission
 
         $user = Auth::user();
 
+        if (!$user -> Habilitado){
+            Auth::logout();
+            return redirect('/login') -> with('error_permiso', 'Tu cuenta esta deshabilitada.');
+        }
+
         // Verificar si el usuario cuenta con al menos uno de los permisos requeridos
         foreach ($permissions as $permission) {
             if ($user->hasPermission($permission)) {
