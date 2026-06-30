@@ -48,7 +48,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- Asegúrate de que el modelo Permiso tenga la relación roles() definida --}}
                         @if(isset($permiso->roles))
                             @forelse($permiso->roles as $rol)
                                 <tr>

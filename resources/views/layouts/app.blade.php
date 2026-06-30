@@ -282,6 +282,14 @@
                                     </div>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('personal.index') }}" class="nav-link ps-4">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-users nav-icon" style="font-size: 0.85rem;"></i>
+                                        <span class="hide-on-collapse ms-2">Personal</span>
+                                    </div>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

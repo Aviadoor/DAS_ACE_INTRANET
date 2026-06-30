@@ -138,14 +138,14 @@
         <div class="row g-3 mb-3">
             <div class="col-md-12">
                 <label for="Password" class="form-label">Password</label>
-                <input type="text" class="form-control @error('Password') is-invalid @enderror" id="Password" name="Password" rows="3" placeholder="Password">{{ old('Password') }}</input>
+                <input type="password" class="form-control @error('Password') is-invalid @enderror" id="Password" name="Password" rows="3" placeholder="Password">{{ old('Password') }}</input>
                 @error('Password') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
         </div>
         <div class="row g-3 mb-3">
             <div class="col-md-12">
                 <label for="Password_confirmation" class="form-label">Confirmar password</label>
-                <input type="text" class="form-control @error('Password_confirmation') is-invalid @enderror" id="Password_confirmation" name="Password_confirmation" rows="3" placeholder="Confirmar password">{{ old('confirmar_password') }}</input>
+                <input type="password" class="form-control @error('Password_confirmation') is-invalid @enderror" id="Password_confirmation" name="Password_confirmation" rows="3" placeholder="Confirmar password">{{ old('confirmar_password') }}</input>
                 @error('Password_confirmation') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
         </div>

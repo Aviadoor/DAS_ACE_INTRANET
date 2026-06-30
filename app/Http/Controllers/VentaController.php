@@ -122,9 +122,8 @@ class VentaController extends Controller
     {
         $venta = Venta::with('articulos') -> find($id);
         $articulos = $venta -> articulos;
-        $personas = Personal::all();
 
-        return view('Venta.show', compact('venta', 'articulos', 'personas'));
+        return view('Venta.show', compact('venta', 'articulos'));
     }
 
     public function edit(string $id)

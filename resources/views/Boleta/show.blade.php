@@ -7,8 +7,8 @@
     <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
             <label class="form-label">Personal</label>
-            <input type="text" class="form-control-readonly" value="{{ $boleta->personal->Codigo_Documento }}">
-            <input type="text" class="form-control-readonly" value="{{ $boleta->personal->Nombre_1 . " " . $boleta->personal->Nombre_2 . " " . $boleta->personal->Apellido_1 . " " . $boleta->personal->Apellido_2 }}" readonly>
+            <input type="text" class="form-control-readonly" value="{{ $boleta->personal?->Codigo_Documento }}">
+            <input type="text" class="form-control-readonly" value="{{ $boleta->personal?->Nombre_1 . " " . $boleta->personal?->Nombre_2 . " " . $boleta->personal?->Apellido_1 . " " . $boleta->personal?->Apellido_2 }}" readonly>
         </div>
         <div class="col-12 col-md-6">
             <label class="form-label">Fecha de Inicio</label>

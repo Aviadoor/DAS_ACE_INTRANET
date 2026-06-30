@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Venta;
 use App\Models\Boleta;
+use App\Models\Tipo_Documento;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Personal extends Model
 {
@@ -39,6 +41,11 @@ class Personal extends Model
     {
         //(fk de Personal, pk de Personal)
         return $this -> hasMany(Venta::class, 'fk_personal_Vendedor', 'id');
+    }
+
+    public function documento(): BelongsTo
+    {
+        return $this -> belongsTo(Tipo_Documento::class, 'fk_id_tipo_documento', 'id');
     }
 
 }

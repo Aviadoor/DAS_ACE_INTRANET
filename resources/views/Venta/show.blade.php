@@ -3,7 +3,9 @@
 {{-- Título de la vista --}}
 @section('page-title', 'Detalles de Venta')
 @section('back-url', route('venta.index'))
-
+@php
+    $Personal = $venta->personal;
+@endphp
 @section('show-content')
     <div class="row g-3 mb-3">
         <div class="col-12 col-md-6">
@@ -12,7 +14,7 @@
         </div>
         <div class="col-12 col-md-6">
             <label class="form-label">Vendedor</label>
-            <input type="text" class="form-control-readonly" value="{{ $venta->personal->Nombre_1 }}" readonly>
+            <input type="text" class="form-control-readonly" value="{{ $Personal?->Codigo_Documento ? ($Personal->Codigo_Documento . ' - ' . $Personal->Nombre_1 . ' ' . $Personal->Apellido_1) : 'Sin vendedor asignado' }}" readonly>
         </div>
     </div>
 

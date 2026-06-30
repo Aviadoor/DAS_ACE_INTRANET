@@ -27,7 +27,7 @@
             <td>{{ $venta->Nombre_Cliente }}</td>
             <td>{{ $venta->Fecha_Emision }}</td>
             <td>{{ $venta->Fecha_Entrega }}</td>
-            <td>{{ $venta->personal->Nombre_1 }}</td>
+            <td>{{ $venta->personal->Nombre_1 ?? ' ' }}</td>
             <td>{{ $venta->Total }}</td>
             <td>
                 <a href="{{ route('venta.show', $venta->id) }}" class="btn action-btn btn-view" title="Ver">
@@ -47,7 +47,13 @@
         </tr>
     @empty
         <tr>
-            <td colspan="6" class="text-center text-muted">No hay ventas registradas.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
-    @endforelse
+        <div class="text-center text-muted">No hay ventas registradas.</div>
+        @endforelse
 @endsection

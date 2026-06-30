@@ -49,7 +49,14 @@
         </tr>
     @empty
         <tr>
-            <td colspan="8" class="text-center text-muted">No hay usuarios registrados.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
+        <div class="text-center text-muted">No hay usuarios registrados.</div>
     @endforelse
 @endsection

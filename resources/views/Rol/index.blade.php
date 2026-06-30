@@ -42,7 +42,14 @@
         </tr>
     @empty
         <tr>
-            <td colspan="8" class="text-center text-muted">No hay roles registrados.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
+        <div class="text-center text-muted">No hay roles registrados.</div>
     @endforelse
 @endsection

@@ -24,14 +24,13 @@
 {{-- Cuerpo de la tabla --}}
 @section('table-body')
     @forelse ($boletas as $boleta)
-    <div hidden>{{ $boleta->id_fk_personal }}</div>
+    <div hidden>{{ $boleta->id_fk_personal ?? null }}</div>
         <tr>
-            <td>{{ $boleta->personal->Nombre_1 }}</td>
+            <td>{{ $boleta->personal?->Nombre_1 ?? 'Sin personal' }}</td>
             <td>{{ $boleta->Dias_Laborados }}</td>
             <td>{{ $boleta->Total_Horas }}</td>
             <td>{{ $boleta->Fecha_Inicio }}</td>
             
-            {{-- Formato de 2 decimales para los valores monetarios --}}
             <td>{{ number_format($boleta->Prima_Seguro, 2) }}</td>
             <td class="text-success fw-bold">{{ number_format($boleta->Sueldo_Neto, 2) }}</td>
             
@@ -53,8 +52,14 @@
         </tr>
     @empty
         <tr>
-            {{-- Colspan = 8 porque hay 8 columnas en la tabla --}}
-            <td colspan="8" class="text-center text-muted">No hay boletas registradas.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
+        <div class="text-center text-muted">No hay ventas boletas registradas.</div>
     @endforelse
 @endsection

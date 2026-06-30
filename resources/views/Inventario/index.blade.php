@@ -38,7 +38,7 @@
                 <a href="{{ route('inventario.edit', $articulo->id) }}" class="btn action-btn btn-edit" title="Editar">
                     <i class="fas fa-pen"></i>
                 </a>
-                <form action="{{ route('inventario.destroy', $articulo->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este artículo?');">
+                <form action="{{ route('inventario.destroy', $articulo->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta venta?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn action-btn btn-delete" title="Eliminar">
@@ -49,7 +49,12 @@
         </tr>
     @empty
         <tr>
-            <td colspan="6" class="text-center text-muted">No hay artículos registrados.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
+        <div class="text-center text-muted">No hay articulos registrados.</div>
     @endforelse
 @endsection

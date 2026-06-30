@@ -78,8 +78,14 @@
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label>Nombre Completo</label>
-                            <input type="text" name="NombreCompleto" class="form-control" required>
+                            <label>Primer Nombre</label>
+                            <input type="text" name="Nombre_1" class="form-control" required>
+                            <label>Segundo Nombre</label>
+                            <input type="text" name="Nombre_2" class="form-control">
+                            <label>Primer Apellido</label>
+                            <input type="text" name="Apellido_1" class="form-control" required>
+                            <label>Segundo Apellido</label>
+                            <input type="text" name="Apellido_2" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label>Telefono</label>

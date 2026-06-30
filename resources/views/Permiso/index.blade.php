@@ -51,7 +51,12 @@
         </tr>
     @empty
         <tr>
-            <td colspan="6" class="text-center text-muted">No hay permisos registrados.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
+        <div class="text-center text-muted">No hay permisos registrados.</div>
     @endforelse
 @endsection
