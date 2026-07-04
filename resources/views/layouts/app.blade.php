@@ -323,7 +323,7 @@
     </div>
 
     <!-- =======================
-        BOTÓN FLOTANTE Y VENTANA DE CHAT IA (desde el segundo código)
+        BOTÓN FLOTANTE Y VENTANA DE CHAT IA
     ======================== -->
     <button id="btn-chat-ia" onclick="toggleChat()" style="position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; border-radius: 50%; background-color: var(--sidebar-active); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.25); z-index: 2000; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease;">
         <i class="fas fa-robot" style="font-size: 1.4rem;"></i>
@@ -419,7 +419,8 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     body: JSON.stringify({ pregunta: preguntaTexto })
                 });
@@ -427,32 +428,26 @@
                 const data = await response.json();
                 document.getElementById(idPensando).remove();
 
-                if (data.status === 'success') {
+                if (response.ok && data.status === 'success') {
                     cuerpoChat.innerHTML += `
                         <div style="margin-bottom: 12px; text-align: left;">
                             <span style="background-color: #e2e8f0; padding: 8px 14px; border-radius: 14px; display: inline-block; max-width: 85%; color: #1e293b; white-space: pre-wrap;">
-                                ${data.respuesta}
+                                ${data.respuesta.trim()}
                             </span>
                         </div>
                     `;
                 } else {
+                    console.error("Error devuelto por Laravel:", data); 
+                    
                     cuerpoChat.innerHTML += `
                         <div style="margin-bottom: 12px; text-align: left;">
                             <span style="background-color: #fef2f2; color: #991b1b; padding: 8px 14px; border-radius: 14px; display: inline-block; max-width: 85%; border: 1px solid #fee2e2;">
-                                Error al procesar la respuesta interna.
+                                Error interno. Presiona F12 y revisa la pestaña "Console" para ver el detalle.
                             </span>
                         </div>
                     `;
                 }
             } catch (error) {
-                document.getElementById(idPensando).remove();
-                cuerpoChat.innerHTML += `
-                    <div style="margin-bottom: 12px; text-align: left;">
-                        <span style="background-color: #fef2f2; color: #991b1b; padding: 8px 14px; border-radius: 14px; display: inline-block; max-width: 85%; border: 1px solid #fee2e2;">
-                            Error de red: No se pudo conectar con el servidor.
-                        </span>
-                    </div>
-                `;
             }
             cuerpoChat.scrollTop = cuerpoChat.scrollHeight;
         }

@@ -30,9 +30,27 @@ class GeminiService
     public function consultarAsistente(string $pregunta, string $contextoInformacion): string
     {
         $contextoLimpio = str_replace(["\r", "\n"], ' ', $contextoInformacion);
+        
+        // Reglas inyectadas desde tu archivo de instrucciones
+        $reglasVisuales = "REGLA CRÍTICA DE FORMATO VISUAL:\n" .
+                        "1. Cuando respondas con listas de productos, inventario, precios o stocks, NO uses viñetas ni tablas Markdown tradicionales (como '|' o '**').\n" .
+                        "2. Debes generar OBLIGATORIAMENTE una tabla HTML utilizando clases de Bootstrap 5 con el siguiente formato exacto:\n" .
+                        "<div class='table-responsive mt-2' style='max-height: 250px; overflow-y: auto;'>\n" .
+                        "  <table class='table table-sm table-striped table-hover border table-bordered' style='font-size: 0.8rem;'>\n" .
+                        "    <thead class='table-dark' style='position: sticky; top: 0; z-index: 5;'>\n" .
+                        "      <tr><th>Modelo</th><th>Descripción</th><th>Precio</th><th>Stock</th></tr>\n" .
+                        "    </thead>\n" .
+                        "    <tbody>\n" .
+                        "      <tr><td><strong>[MODELO]</strong></td><td>[DESCRIPCIÓN]</td><td class='text-nowrap'>S/. [PRECIO]</td><td><span class='badge [CLASE_BADGE]'>[STOCK]</span></td></tr>\n" .
+                        "    </tbody>\n" .
+                        "  </table>\n" .
+                        "</div>\n" .
+                        "3. Para la columna Stock, si el stock es 0 usa class='badge bg-danger'. Si es mayor a 0 usa class='badge bg-success'.";
+
         $promptSistema = "Eres el asistente inteligente de la intranet DAS_ACE.\n" .
-                         "Responde EXCLUSIVAMENTE con el contexto. Si no hay datos, sé amable.\n\n" .
-                         "CONTEXTO DISPONIBLE:\n" . $contextoLimpio;
+                        "Responde EXCLUSIVAMENTE con el contexto. Si no hay datos, sé amable.\n\n" .
+                        $reglasVisuales . "\n\n" .
+                        "CONTEXTO DISPONIBLE:\n" . $contextoLimpio;
 
         $attempts = count($this->keys);
         for ($i = 0; $i < $attempts; $i++) {
