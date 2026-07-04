@@ -58,7 +58,7 @@
             transition: opacity 0.2s ease;
             white-space: nowrap;
         }
-        
+
         body.sidebar-collapsed .sidebar:not(:hover) .hide-on-collapse {
             opacity: 0;
             visibility: hidden;
@@ -90,22 +90,6 @@
             flex-shrink: 0;
         }
 
-        /* Input de Búsqueda del menú */
-        .sidebar-search-container {
-            padding: 10px 15px;
-        }
-        .sidebar-search-container input {
-            background-color: #f4f6f9;
-            border: none;
-            border-radius: 3px 0 0 3px;
-        }
-        .sidebar-search-container button {
-            background-color: #f4f6f9;
-            border: none;
-            color: #333;
-            border-radius: 0 3px 3px 0;
-        }
-
         /* Links del Menú */
         .sidebar-nav {
             padding: 0;
@@ -128,7 +112,7 @@
             background-color: var(--sidebar-active);
             color: white;
         }
-        
+
         /* Contenedor del ícono para que quede centrado al colapsar */
         .nav-icon {
             width: 30px;
@@ -163,13 +147,13 @@
             align-items: center;
             justify-content: space-between;
         }
-        
+
         .content-area {
             padding: 20px;
             overflow-y: auto;
             flex-grow: 1;
         }
-        
+
         /* Personalizar scrollbar del sidebar */
         .sidebar::-webkit-scrollbar { width: 5px; }
         .sidebar::-webkit-scrollbar-track { background: #353b41; }
@@ -179,13 +163,13 @@
 <body class="sidebar-collapsed"> <!-- La clase sidebar-collapsed inicia el menú cerrado. Quítala si quieres que empiece abierto -->
 
     <div class="wrapper">
-        
+
         <!-- =======================
             INICIO DEL SIDEBAR
         ======================== -->
         <aside class="sidebar shadow">
-            
-            <!-- Logo Header -->
+
+            <!-- Logo Header con enlace a home -->
             <a href="{{ route('home') }}" class="sidebar-header text-decoration-none" style="display: flex; align-items: center;">
                 <div class="logo-icon">A</div>
                 <div class="hide-on-collapse ms-2 text-white" style="font-size: 1.1rem;">
@@ -195,7 +179,8 @@
 
             <!-- Menú Navegación -->
             <ul class="sidebar-nav">
-                
+
+                <!-- Inventario -->
                 <li>
                     <a href="#inventarioSubmenu" data-bs-toggle="collapse" class="nav-link active">
                         <div class="d-flex align-items-center">
@@ -218,6 +203,7 @@
                     </div>
                 </li>
 
+                <!-- Contabilidad -->
                 <li>
                     <a href="#contabilidadSubmenu" data-bs-toggle="collapse" class="nav-link">
                         <div class="d-flex align-items-center">
@@ -248,6 +234,7 @@
                     </div>
                 </li>
 
+                <!-- Maestros -->
                 <li>
                     <a href="#maestrosSubmenu" data-bs-toggle="collapse" class="nav-link">
                         <div class="d-flex align-items-center">
@@ -259,7 +246,7 @@
                     <div class="collapse" id="maestrosSubmenu">
                         <ul class="sidebar-nav" style="background-color: #2b3035;">
                             <li>
-                                <a href="{{ route('rol.index')}}" class="nav-link ps-4">
+                                <a href="{{ route('rol.index') }}" class="nav-link ps-4">
                                     <div class="d-flex align-items-center">
                                         <i class="fas fa-user-tag nav-icon" style="font-size: 0.85rem;"></i>
                                         <span class="hide-on-collapse ms-2">Roles</span>
@@ -301,20 +288,20 @@
             CONTENIDO PRINCIPAL
         ======================== -->
         <div class="main-content">
-            
+
             <!-- Navbar Superior (Topbar) -->
             <header class="topbar">
                 <div>
                     <i class="fas fa-bars text-secondary fs-5" id="menu-toggle" style="cursor: pointer;"></i>
                 </div>
-                
+
                 <div class="d-flex align-items-center gap-3">
                     <span class="text-secondary" style="font-weight: 600; font-size: 0.9rem;">
                         <i class="fas fa-user-circle me-1"></i> {{ Auth::user()->Username ?? 'Invitado' }}
                     </span>
-                    
+
                     @auth
-                        <button class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1" 
+                        <button class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt"></i>
                             <span class="d-none d-sm-inline">Salir</span>
@@ -335,15 +322,136 @@
         </div>
     </div>
 
+    <!-- =======================
+        BOTÓN FLOTANTE Y VENTANA DE CHAT IA
+    ======================== -->
+    <button id="btn-chat-ia" onclick="toggleChat()" style="position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; border-radius: 50%; background-color: var(--sidebar-active); color: white; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.25); z-index: 2000; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease;">
+        <i class="fas fa-robot" style="font-size: 1.4rem;"></i>
+    </button>
+
+    <div id="ventana-chat-ia" style="display: none; position: fixed; bottom: 95px; right: 25px; width: 360px; height: 500px; background-color: white; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index: 2000; flex-direction: column; overflow: hidden; border: 1px solid #e2e8f0; font-family: inherit;">
+
+        <div style="background-color: var(--sidebar-bg); color: white; padding: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--sidebar-active);">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-brain me-2 text-info"></i>
+                <span>Asistente A.C. Enterprises</span>
+            </div>
+            <button onclick="toggleChat()" style="background: none; border: none; color: #a0aec0; cursor: pointer; font-size: 1.1rem;"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div id="cuerpo-chat-ia" style="flex: 1; padding: 15px; overflow-y: auto; background-color: #f8fafc; font-size: 0.9rem;">
+            <div style="margin-bottom: 12px; text-align: left;">
+                <span style="background-color: #e2e8f0; padding: 8px 14px; border-radius: 14px; display: inline-block; max-width: 85%; color: #1e293b;">
+                    ¡Hola! Soy tu asistente inteligente con Gemini. ¿Qué deseas consultar hoy sobre el inventario, personal o reglamentos?
+                </span>
+            </div>
+        </div>
+
+        <div style="padding: 12px; display: flex; background-color: white; border-top: 1px solid #e2e8f0;">
+            <input type="text" id="input-pregunta-ia" placeholder="Escribe tu pregunta aquí..." style="flex: 1; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px; outline: none; font-size: 0.9rem;" onkeypress="if(event.key === 'Enter') enviarPreguntaFlotante()">
+            <button onclick="enviarPreguntaFlotante()" style="background-color: var(--sidebar-active); color: white; border: none; padding: 8px 14px; margin-left: 8px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; font-weight: 500;">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts base -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    @stack('scripts') <!-- Para inyectar JS de Datatables -->
+    @stack('scripts') <!-- Para inyectar JS de Datatables o personalizado -->
 
     <script>
         // Lógica del botón de 3 rayas para fijar o colapsar permanentemente el menú
         document.getElementById('menu-toggle').addEventListener('click', function() {
             document.body.classList.toggle('sidebar-collapsed');
         });
+
+        // ===========================
+        // LÓGICA DEL CHAT IA (combinada)
+        // ===========================
+
+        // Abrir/cerrar ventana emergente
+        function toggleChat() {
+            const chat = document.getElementById('ventana-chat-ia');
+            const btn = document.getElementById('btn-chat-ia');
+            if (chat.style.display === 'none' || chat.style.display === '') {
+                chat.style.display = 'flex';
+                btn.style.transform = 'scale(0.9)';
+            } else {
+                chat.style.display = 'none';
+                btn.style.transform = 'scale(1)';
+            }
+        }
+
+        // Enviar pregunta al endpoint de la IA
+        async function enviarPreguntaFlotante() {
+            const input = document.getElementById('input-pregunta-ia');
+            const cuerpoChat = document.getElementById('cuerpo-chat-ia');
+            const preguntaTexto = input.value.trim();
+
+            if (!preguntaTexto) return;
+
+            // Mostrar mensaje del usuario
+            cuerpoChat.innerHTML += `
+                <div style="margin-bottom: 12px; text-align: right;">
+                    <span style="background-color: var(--sidebar-active); color: white; padding: 8px 14px; border-radius: 14px; display: inline-block; max-width: 85%;">
+                        ${preguntaTexto}
+                    </span>
+                </div>
+            `;
+
+            input.value = '';
+            cuerpoChat.scrollTop = cuerpoChat.scrollHeight;
+
+            // Mostrar estado "cargando"
+            const idPensando = 'loading-' + Date.now();
+            cuerpoChat.innerHTML += `
+                <div id="${idPensando}" style="margin-bottom: 12px; text-align: left;">
+                    <span style="background-color: #e2e8f0; padding: 8px 14px; border-radius: 14px; display: inline-block; max-width: 85%; color: #64748b; font-style: italic;">
+                        <i class="fas fa-spinner fa-spin me-1"></i> Pensando...
+                    </span>
+                </div>
+            `;
+            cuerpoChat.scrollTop = cuerpoChat.scrollHeight;
+
+            try {
+                const response = await fetch('{{ url("/api/agente/preguntar") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ pregunta: preguntaTexto })
+                });
+
+                const data = await response.json();
+                document.getElementById(idPensando).remove();
+
+                if (response.ok && data.status === 'success') {
+                    cuerpoChat.innerHTML += `
+                        <div style="margin-bottom: 12px; text-align: left;">
+                            <span style="background-color: #e2e8f0; padding: 8px 14px; border-radius: 14px; display: inline-block; max-width: 85%; color: #1e293b; white-space: pre-wrap;">
+                                ${data.respuesta.trim()}
+                            </span>
+                        </div>
+                    `;
+                } else {
+                    console.error("Error devuelto por Laravel:", data); 
+                    
+                    cuerpoChat.innerHTML += `
+                        <div style="margin-bottom: 12px; text-align: left;">
+                            <span style="background-color: #fef2f2; color: #991b1b; padding: 8px 14px; border-radius: 14px; display: inline-block; max-width: 85%; border: 1px solid #fee2e2;">
+                                Error interno. Presiona F12 y revisa la pestaña "Console" para ver el detalle.
+                            </span>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+            }
+            cuerpoChat.scrollTop = cuerpoChat.scrollHeight;
+        }
     </script>
+
 </body>
 </html>
