@@ -9,11 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Personal;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Permiso;
+use App\Models\Usuario_MFA_Codigos;
+use Illuminate\Notifications\Notifiable;
 
 // 3. CAMBIAMOS "extends Model" por "extends Authenticatable"
 class Usuario extends Authenticatable
 {
     use HasFactory;
+    use Notifiable;
 
     protected $table = 'Usuarios';
     protected $primaryKey = 'id';
@@ -85,5 +88,15 @@ class Usuario extends Authenticatable
                         ->orWhere('Slug', 'admin-all');
                 });
         })->exists();
+    }
+
+    public function mfaCodes()
+    {
+        return $this -> hasMany(Usuario_MFA_Codigos::class, 'fk_id_usuario', 'id');
+    }
+
+    public function routeNotificationForMail($notification)
+    {
+        return $this -> Email;
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\MfaController;
 
 // Ruta raíz (la que faltaba para el 404)
 Route::get('/', function () {
@@ -19,6 +20,10 @@ Route::get('/', function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+
+    Route::get('/login/mfa', [MfaController::class, 'index']) -> name('mfa.index');
+    Route::post('/login/mfa', [MfaController::class, 'verify']) -> name('mfa.verify') -> middleware('throttle:5,1');
+    Route::post('/login/mfa/reenviar', [MfaController::class, 'resend']) -> name('mfa.resend');
 });
 
 // Rutas protegidas por autenticación
