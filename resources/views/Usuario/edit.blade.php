@@ -114,7 +114,7 @@
         <div class="row g-3 mb-3">
             <div class="col-12 col-md-6">
                 <label>Persona</label>
-                <input type="text" class="form-control" value="{{ $usuario->persona->Nombre_1 . $usuario->persona->Apellido_1}}" readonly>
+                <input type="text" class="form-control" value="{{ $usuario->persona->Nombre_1 . " " . $usuario->persona->Apellido_1}}" readonly>
             </div>
             <div class="col-12 col-md-6">
                 <label class="form-label">Email</label>
@@ -133,14 +133,14 @@
             <div class="col-md-12">
                 <label for="Cambiar_Password" class="form-label">Cambiar Password</label>
                 <input type="checkbox" name="check_cambiar_password" id="check_cambiar_password">
-                <input type="text" class="form-control @error('Cambiar_Password') is-invalid @enderror" id="Cambiar_Password" name="Cambiar_Password"></input>
+                <input type="password" class="form-control @error('Cambiar_Password') is-invalid @enderror" id="Cambiar_Password" name="Cambiar_Password"></input>
                 @error('Cambiar_Password') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
         </div>
         <div class="row g-3 mb-3">
             <div class="col-md-12">
                 <label for="Cambiar_Password_confirmation" class="form-label">Confirmar nueva password</label>
-                <input type="text" class="form-control @error('Cambiar_Password_confirmation') is-invalid @enderror" id="Cambiar_Password_confirmation" name="Cambiar_Password_confirmation"></input>
+                <input type="password" class="form-control @error('Cambiar_Password_confirmation') is-invalid @enderror" id="Cambiar_Password_confirmation" name="Cambiar_Password_confirmation"></input>
                 @error('Cambiar_Password_confirmation') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
         </div>
