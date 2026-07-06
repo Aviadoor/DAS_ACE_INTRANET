@@ -64,7 +64,13 @@ class InventarioController extends Controller
             'Costo' => ['required'],
             'PrecioVenta' => ['required'],
             'Stock' => ['required', 'integer', 'min:0', 'max:100'],
-            'fk_id_unidad' => ['required']
+            'fk_id_unidad' => ['required'],
+            'Descripcion' => ['string'],
+            'Peso' => ['numeric'],
+            'Largo' => ['numeric'],
+            'Ancho' => ['numeric'],
+            'Alto' => ['numeric']
+
         ],[
             'Modelo.required' => 'Campo obligatorio',
             'Costo.required' => 'Campo obligatorio',

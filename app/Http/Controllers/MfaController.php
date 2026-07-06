@@ -21,6 +21,7 @@ class MfaController extends Controller
 
     public function verify(Request $request)
     {
+        date_default_timezone_set('America/Lima');
         $request->validate([
             'code' => 'required|string|size:6',
         ]);
@@ -51,12 +52,13 @@ class MfaController extends Controller
         // LOGUEAR OFICIALMENTE AL USUARIO EN LARAVEL
         Auth::login($user);
 
-        // Redireccionar al dashboard o la ruta que intentaba acceder
-        return redirect()->intended('/dashboard');
+        // Redireccionar a home si no se coloco ruta
+        return redirect()->intended('/home');
     }
 
     public function resend()
     {
+        date_default_timezone_set('America/Lima');
         if (!session()->has('mfa_user_id')) {
             return redirect()->route('login');
         }
