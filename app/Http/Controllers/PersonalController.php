@@ -87,13 +87,13 @@ class PersonalController extends Controller
         $personal = Personal::findOrFail($id);
 
         $personal->update([
-            'Nombre_1'             => $nombre_completo[0],
-            'Nombre_2'             => $nombre_completo[1] ?? ' ',
-            'Apellido_1'           => $nombre_completo[2] ?? ' ',
-            'Apellido_2'           => $nombre_completo[3] ?? ' ',
-            'telefono'             => $request->Telefono,
-            'Codigo_Documento'     => $request->Codigo_Documento,
-            'fk_id_tipo_documento' => $request->fk_id_tipo_documento
+            'Nombre_1'             => $request -> Nombre_1,
+            'Nombre_2'             => $request -> Nombre_2 ?? ' ',
+            'Apellido_1'           => $request -> Apellido_1,
+            'Apellido_2'           => $request -> Apellido_2 ?? ' ',
+            'telefono'             => $request -> Telefono,
+            'Codigo_Documento'     => $request -> Codigo_Documento,
+            'fk_id_tipo_documento' => $request -> fk_id_tipo_documento
         ]);
         
         return redirect()->route('personal.index')
